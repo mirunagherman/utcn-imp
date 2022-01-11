@@ -45,6 +45,8 @@ public:
     REF,
     BINARY,
     CALL,
+    //lab1 ex3 a)
+    INTEGER,
   };
 
 public:
@@ -57,6 +59,19 @@ private:
   Kind kind_;
 };
 
+//lab1 ex3 a)
+class IntegerExpr : public Expr {
+  public:
+    IntegerExpr(const uint64_t intgr) 
+      : Expr(Kind::INTEGER)
+      , intgr_(intgr)
+      {
+      }
+    uint64_t GetValue() const { return intgr_; }
+
+  private:
+    uint64_t intgr_;
+};
 /**
  * Expression referring to a named value.
  */

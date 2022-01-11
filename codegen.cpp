@@ -177,6 +177,10 @@ void Codegen::LowerExpr(const Scope &scope, const Expr &expr)
     case Expr::Kind::CALL: {
       return LowerCallExpr(scope, static_cast<const CallExpr &>(expr));
     }
+    //lab1 ex5
+    case Expr::Kind::INTEGER: {
+      return LowerIntegerExpr(scope, static_cast<const IntegerExpr &>(expr));
+    }
   }
 }
 
@@ -223,6 +227,13 @@ void Codegen::LowerCallExpr(const Scope &scope, const CallExpr &call)
   depth_ -= call.arg_size();
 }
 
+//lab1 ex5
+void Codegen::LowerIntegerExpr(const Scope &scope, const IntegerExpr &expr){
+  depth_ +=1;
+  Emit<Opcode>(Opcode::PUSH_INT);
+  Emit<int64_t>(expr.GetValue());
+  
+}
 // -----------------------------------------------------------------------------
 void Codegen::LowerFuncDecl(const Scope &scope, const FuncDecl &decl)
 {
@@ -253,6 +264,7 @@ Codegen::Label Codegen::MakeLabel()
 {
   return Label(++nextLabel_);
 }
+
 
 // -----------------------------------------------------------------------------
 template<typename T>
